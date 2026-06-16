@@ -1,5 +1,10 @@
 # MultiView-Pose-Predictive-Ballistics
 
+[![tests](https://github.com/ArlenSmagulov/MultiView-Pose-Predictive-Ballistics/actions/workflows/tests.yml/badge.svg)](https://github.com/ArlenSmagulov/MultiView-Pose-Predictive-Ballistics/actions/workflows/tests.yml)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue.svg)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
+![Code style](https://img.shields.io/badge/tests-pytest-0a9edc.svg)
+
 Multi-view pose prediction for vision-guided ball launching.
 
 This repository is the cleaned public portfolio version of my MSc engineering project: a computer-vision system that combines 3D athlete tracking, predictive targeting, movement assessment, and safety-gated robotic ball launching. It focuses on the reusable software: 3D joint analytics, rule-based movement assessment, live training feedback logic, camera-layout analysis, projector target scoring, event logging, and safety gates. Large local assets such as raw videos, model weights, calibration captures, and private work logs are intentionally excluded.
@@ -19,6 +24,7 @@ The full system uses fixed cameras around a small indoor arena to reconstruct at
 
 | Area | Public code |
 | --- | --- |
+| Multi-view geometry, prediction, and ballistics | `src/project_cam/geometry/` |
 | Athlete assessment | `src/project_cam/assessment/` |
 | Live trainer state and overlay logic | `src/project_cam/assessment/live_trainer/` |
 | Closed-loop event logging and safety gates | `src/project_cam/closed_loop/` |
@@ -26,6 +32,50 @@ The full system uses fixed cameras around a small indoor arena to reconstruct at
 | Camera layout and coverage analysis | `scripts/` |
 | Sample motion data and generated reports | `data/raw/`, `data/reports/` |
 | Tests | `tests/` |
+
+## Core Algorithms
+
+The three stages in the project name are implemented as small, dependency-light,
+fully unit-tested modules in `src/project_cam/geometry/`. They operate on plain
+NumPy arrays and calibration matrices, so they can be reviewed and tested without
+cameras, model weights, or the live inference stack.
+
+- **Multi-view** (`geometry/triangulation.py`) — SVD/DLT triangulation of a 3D
+  point from `N` calibrated views, with robust per-camera reprojection rejection
+  that discards a mislabelled detection before it corrupts the fit, plus a
+  single-camera ray/plane fallback for when only one view sees the target.
+- **Predictive** (`geometry/kalman.py`) — a constant-velocity 3D Kalman filter
+  that smooths the track and extrapolates 200–400 ms ahead so the launcher leads
+  a moving athlete, and reports the prediction's uncertainty so a poorly
+  conditioned track can be refused.
+- **Ballistics** (`geometry/ballistics.py`) — converts a world-frame target into
+  the launcher's local frame and solves the projectile equations for firing pitch
+  and yaw at a fixed muzzle speed.
+
+```python
+import numpy as np
+from project_cam.geometry import (
+    triangulate_multi, JointKalmanFilter, solve_angles_ballistic,
+)
+
+# 1. Reconstruct a 3D target (mm) from normalized observations + [R|t] projections.
+target_mm = triangulate_multi(observations, projection_matrices)
+
+# 2. Smooth it and lead 300 ms ahead.
+kf = JointKalmanFilter(process_noise=500, measurement_noise=10)
+kf.update_step(target_mm)
+lead_mm = kf.predict_ahead(0.3)
+
+# 3. Solve the launcher pitch/yaw for the predicted point.
+pitch_deg, yaw_deg = solve_angles_ballistic(
+    x_lat_m=0.6, y_fwd_m=3.0, dz_m=0.4, v_ms=14.0,
+)
+```
+
+The geometry, prediction, and ballistics correctness is verified end to end in
+`tests/test_triangulation.py`, `tests/test_kalman.py`, and `tests/test_ballistics.py`
+using synthetic camera rigs and trajectories (a known 3D point is projected into
+several cameras and recovered to sub-millimetre accuracy).
 
 ## Results Snapshot
 
@@ -97,6 +147,10 @@ MultiView-Pose-Predictive-Ballistics/
 ├── firmware/              # ESP32 launcher firmware snapshot
 ├── scripts/               # Camera coverage and layout analysis
 ├── src/project_cam/       # Python package namespace
+│   ├── geometry/          # Triangulation, Kalman prediction, ballistics
+│   ├── assessment/        # Rep segmentation, metrics, reports, exports
+│   ├── closed_loop/       # Event logging and safety gates
+│   └── projector/         # Wall projection and target scoring
 └── tests/                 # Unit and workflow tests
 ```
 
@@ -104,6 +158,7 @@ MultiView-Pose-Predictive-Ballistics/
 
 Start with these files if you are reviewing the project for a Data Science, Computer Vision, or ML Engineering role:
 
+- `src/project_cam/geometry/` - multi-view triangulation, predictive Kalman filtering, and the ballistic aim solver (the core CV/ML math), with synthetic-rig tests.
 - `src/project_cam/assessment/reports.py` - report construction and movement-quality scoring.
 - `src/project_cam/assessment/segmentation.py` - rep detection and rejection logic.
 - `src/project_cam/assessment/live_trainer/` - live state machine, overlay, and keypoint stabilization.

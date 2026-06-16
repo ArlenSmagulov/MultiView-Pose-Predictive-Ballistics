@@ -1,6 +1,6 @@
 # MultiView-Pose-Predictive-Ballistics — Month 0 Accomplishments
 
-**Author:** Hanush · **Date:** 2026-05-11 · **Page:** 1 / 1
+**Author:** Arlen Smagulov · **Date:** 2026-05-11 · **Page:** 1 / 1
 
 ## В одном предложении
 

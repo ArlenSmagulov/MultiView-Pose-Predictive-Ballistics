@@ -1,6 +1,6 @@
 # MultiView-Pose-Predictive-Ballistics — Hardware Upgrade Proposal (Path B)
 
-**Author:** Hanush · **Date:** 2026-05-11 · **Page:** 1 / 1
+**Author:** Arlen Smagulov · **Date:** 2026-05-11 · **Page:** 1 / 1
 
 ## Проблема
 Текущая точность системы 95–180 мм mean, P95 до 290 мм. Это **не подходит для биомеханического screening и публикации**. Причина — не алгоритмы, а железо: **rolling shutter + 15 FPS + software sync + неконтролируемое освещение**. Эти четыре фактора съедают 20–30% точности каждый. Без их устранения validation paper будет слабым и не откроет jumps / sprints / cuts.

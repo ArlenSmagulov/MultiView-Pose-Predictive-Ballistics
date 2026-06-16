@@ -7,7 +7,7 @@ MultiView-Pose-Predictive-Ballistics combines four software layers:
 3. Closed-loop control: event logging, target confidence gates, camera-count gates, and launcher command constraints.
 4. Operator outputs: live trainer overlays, coach-facing reports, C3D export, and camera-coverage visualizations.
 
-The public repository focuses on layers 2-4 and includes standalone geometry tools from layer 1. The heavy live inference stack is intentionally not bundled with the portfolio repo because it depends on local cameras, model weights, TensorRT engines, and private calibration recordings.
+The public repository focuses on layers 2-4 and includes the standalone geometry core of layer 1: multi-view triangulation, the predictive Kalman filter, and the ballistic aim solver in `src/project_cam/geometry/`. The heavy live inference stack (camera capture, YOLO detection, YOLO-Pose) is intentionally not bundled with the portfolio repo because it depends on local cameras, model weights, TensorRT engines, and private calibration recordings.
 
 ## Data Flow
 
@@ -31,4 +31,4 @@ Live targeting loop
 
 ## Review Focus
 
-For software review, inspect `src/project_cam/assessment`, `src/project_cam/closed_loop`, `src/project_cam/projector`, and `tests`. For CV geometry review, inspect `scripts/visualize_camera_coverage.py` and `scripts/render_coverage_heatmap.py`.
+For CV geometry review, inspect `src/project_cam/geometry/` (triangulation, Kalman prediction, ballistics) and its synthetic-rig tests, plus `scripts/visualize_camera_coverage.py` and `scripts/render_coverage_heatmap.py`. For wider software review, inspect `src/project_cam/assessment`, `src/project_cam/closed_loop`, `src/project_cam/projector`, and `tests`.
