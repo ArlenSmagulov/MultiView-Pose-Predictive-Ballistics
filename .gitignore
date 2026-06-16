@@ -1,0 +1,33 @@
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+*.egg-info/
+
+# Local runtime outputs
+output/
+runs/
+logs/
+scripts/coverage_out/
+*.jsonl.tmp
+
+# Large/private CV assets
+*.pt
+*.engine
+*.onnx
+*.mp4
+*.avi
+*.mov
+*.bag
+*.zip
+*.tar
+*.tar.gz
+
+# Local calibration/video dumps should be documented, not committed wholesale.
+cal_backup/
+archive/
+raw_videos/
+camera_captures/

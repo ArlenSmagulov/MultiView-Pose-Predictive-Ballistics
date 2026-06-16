@@ -1,0 +1,36 @@
+{
+  "schema_version": "project_cam.assessment.calibration_check.v1",
+  "status": "ok",
+  "frame_count": 385,
+  "thresholds": {
+    "max_distance_std_mm": 15.0,
+    "max_missing_frame_ratio": 0.3
+  },
+  "measurements": {
+    "shoulder_width_mm": {
+      "mean": 369.0983,
+      "std": 2.0606,
+      "min": 363.2434,
+      "max": 373.7994,
+      "valid_frames": 385,
+      "missing_frame_ratio": 0.0
+    },
+    "left_shoulder_to_wrist_mm": {
+      "mean": 552.4918,
+      "std": 2.0897,
+      "min": 547.4574,
+      "max": 560.0907,
+      "valid_frames": 385,
+      "missing_frame_ratio": 0.0
+    },
+    "right_shoulder_to_wrist_mm": {
+      "mean": 559.4942,
+      "std": 3.3448,
+      "min": 552.8078,
+      "max": 566.6944,
+      "valid_frames": 385,
+      "missing_frame_ratio": 0.0
+    }
+  },
+  "warnings": []
+}

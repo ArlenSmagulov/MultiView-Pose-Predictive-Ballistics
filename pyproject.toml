@@ -1,0 +1,34 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "multiview-pose-predictive-ballistics"
+version = "0.1.0"
+description = "Multi-view pose prediction, athlete assessment, and safety-gated vision-guided ball launching."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26,<2.0",
+    "opencv-python>=4.8,<5.0",
+    "PyYAML>=6.0,<7.0",
+    "matplotlib>=3.8,<4.0",
+    "Jinja2>=3.1,<4.0",
+    "ezc3d>=1.5,<2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0,<9.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"project_cam.assessment" = ["templates/*.html"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-q"
