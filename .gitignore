@@ -26,6 +26,9 @@ scripts/coverage_out/
 *.tar
 *.tar.gz
 
+# Exception: the small compressed demo clip shown in the README is intentional.
+!docs/figures/demo_live_tracking.mp4
+
 # Local calibration/video dumps should be documented, not committed wholesale.
 cal_backup/
 archive/

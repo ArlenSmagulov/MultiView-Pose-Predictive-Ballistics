@@ -9,6 +9,16 @@ Multi-view pose prediction for vision-guided ball launching.
 
 This repository is the cleaned public portfolio version of my MSc engineering project: a computer-vision system that combines 3D athlete tracking, predictive targeting, movement assessment, and safety-gated robotic ball launching. It focuses on the reusable software: 3D joint analytics, rule-based movement assessment, live training feedback logic, camera-layout analysis, projector target scoring, event logging, and safety gates. Large local assets such as raw videos, model weights, calibration captures, and private work logs are intentionally excluded.
 
+## Demo
+
+<p align="center">
+  <img src="docs/figures/demo_live_tracking.gif" width="320" alt="Live multi-camera 3D tracking and predictive launcher aiming">
+</p>
+
+<p align="center"><em>Live closed loop in the lab: four cameras reconstruct the athlete's 3D pose (top view), a Kalman filter leads the target 400&nbsp;ms ahead, and the launcher is aimed at a selected joint — firing pitch, yaw, and range update in real time as the subject moves. Bottom: the physical arena, AprilTag-calibrated walls, and the dual-flywheel launcher.</em></p>
+
+<p align="center">▶️ <a href="docs/figures/demo_live_tracking.mp4">Watch the full clip</a></p>
+
 ## What This Demonstrates
 
 - Computer vision system design for a real multi-camera arena.
@@ -96,6 +106,18 @@ The numbers above come from the private lab validation artifacts; the public rep
 Camera-layout and coverage outputs are included in `docs/figures/`.
 
 ![Six-camera coverage heatmap](docs/figures/coverage_heatmap_slices_six_usb.png)
+
+## Tech Stack & Skills
+
+| Area | Tools and techniques |
+| --- | --- |
+| Languages & core | Python, NumPy, SciPy, OpenCV |
+| Computer vision | Multi-view geometry (SVD/DLT triangulation, camera calibration, reprojection error), 3D pose reconstruction, camera-frustum & coverage modelling |
+| ML & inference | Ultralytics YOLO object detection, YOLO-Pose / MMPose keypoints, TensorRT FP16 acceleration, batched GPU inference, model benchmarking |
+| State estimation | Kalman filtering, constant-velocity motion models, predictive lead targeting, uncertainty gating |
+| Data science | Rep segmentation, movement-quality metrics, confidence scoring, configurable thresholds, JSON/HTML/C3D reporting and biomechanics export |
+| Software engineering | `pyproject`/setuptools packaging, `pytest`, GitHub Actions CI, UDP IPC, ESP32 serial control, real-time pipelines, safety-gated actuation |
+| Tooling | Git, Linux, Matplotlib, Jinja2, ffmpeg |
 
 ## Quick Start
 
