@@ -15,7 +15,7 @@ This repository is the cleaned public portfolio version of my MSc engineering pr
   <img src="docs/figures/demo_live_tracking.gif" width="320" alt="Live multi-camera 3D tracking and predictive launcher aiming">
 </p>
 
-<p align="center"><em>Live closed loop in the lab: four cameras reconstruct the athlete's 3D pose (top view), a Kalman filter leads the target 400&nbsp;ms ahead, and the launcher is aimed at a selected joint — firing pitch, yaw, and range update in real time as the subject moves. Bottom: the physical arena, AprilTag-calibrated walls, and the dual-flywheel launcher.</em></p>
+<p align="center"><em>Live closed loop in the lab: four cameras reconstruct the athlete's 3D pose (top view), a Kalman filter leads the target 400&nbsp;ms ahead, and the launcher is aimed at a selected joint - firing pitch, yaw, and range update in real time as the subject moves. Bottom: the physical arena, AprilTag-calibrated walls, and the dual-flywheel launcher.</em></p>
 
 <p align="center">▶️ <a href="docs/figures/demo_live_tracking.mp4">Watch the full clip</a></p>
 
