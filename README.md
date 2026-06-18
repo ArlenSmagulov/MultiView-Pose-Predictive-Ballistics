@@ -50,15 +50,15 @@ fully unit-tested modules in `src/project_cam/geometry/`. They operate on plain
 NumPy arrays and calibration matrices, so they can be reviewed and tested without
 cameras, model weights, or the live inference stack.
 
-- **Multi-view** (`geometry/triangulation.py`) — SVD/DLT triangulation of a 3D
+- **Multi-view** (`geometry/triangulation.py`) - SVD/DLT triangulation of a 3D
   point from `N` calibrated views, with robust per-camera reprojection rejection
   that discards a mislabelled detection before it corrupts the fit, plus a
   single-camera ray/plane fallback for when only one view sees the target.
-- **Predictive** (`geometry/kalman.py`) — a constant-velocity 3D Kalman filter
+- **Predictive** (`geometry/kalman.py`) - a constant-velocity 3D Kalman filter
   that smooths the track and extrapolates 200–400 ms ahead so the launcher leads
   a moving athlete, and reports the prediction's uncertainty so a poorly
   conditioned track can be refused.
-- **Ballistics** (`geometry/ballistics.py`) — converts a world-frame target into
+- **Ballistics** (`geometry/ballistics.py`) - converts a world-frame target into
   the launcher's local frame and solves the projectile equations for firing pitch
   and yaw at a fixed muzzle speed.
 
